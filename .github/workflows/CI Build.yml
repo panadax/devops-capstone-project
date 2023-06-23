@@ -38,3 +38,7 @@ jobs:
         run: nosetests
         env:
           DATABASE_URI: "postgresql://postgres:pgs3cr3t@postgres:5432/testdb"
+      - name: Add GitHub Actions badge to README
+        run: |
+          echo "[![Build Status](https://github.com/${{ github.repository }}/workflows/CI%20Build/badge.svg)](https://github.com/${{ github.repository }}/actions)"
+          sed -i "s|<!-- CI Build Badge -->|![Build Status](https://github.com/${{ github.repository }}/workflows/CI%20Build/badge.svg)|g" README.md
