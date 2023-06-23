@@ -42,7 +42,8 @@ def index():
 def create_accounts():
     """
     Creates an Account
-    This endpoint will create an Account based the data in the body that is posted
+    This endpoint will create an Account based the data
+    in the body that is posted
     """
     app.logger.info("Request to create an Account")
     check_content_type("application/json")
@@ -51,7 +52,8 @@ def create_accounts():
     account.create()
     message = account.serialize()
     # Uncomment once get_accounts has been implemented
-    # location_url = url_for("get_accounts", account_id=account.id, _external=True)
+    # location_url =
+    # url_for("get_accounts", account_id=account.id, _external=True)
     location_url = "/"  # Remove once get_accounts has been implemented
     return make_response(
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
@@ -61,8 +63,8 @@ def create_accounts():
 # LIST ALL ACCOUNTS
 ######################################################################
 
-# ... place you code here to LIST accounts ...
 
+# ... place you code here to LIST accounts ...
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -73,31 +75,31 @@ def list_accounts():
     # use the Account.all() method to retrieve all accounts
     all_accounts = Account.all()
     # create a list of serialize() accounts
-    account_lsit  = [account.serialize() for account in all_accounts]
-    # log the number of accounts being returned in the list 
-    app.logger.info("number of accounts: %s ", len(account_lsit))
+    account_list = [account.serialize() for account in all_accounts]
+    # log the number of accounts being returned in the list
+    app.logger.info("number of accounts: %s ", len(account_list))
     # return the list with a return code of status.HTTP_200_OK
-    return jsonify(account_lsit), status.HTTP_200_OK
+    return jsonify(account_list), status.HTTP_200_OK
 
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
 
-# ... place you code here to READ an account ...
 
+# ... place you code here to READ an account ...
 @app.route("/accounts/<int:account_id>", methods=["GET"])
 def get_accounts(account_id):
     """
         Reads an Account
-        This endpoint will read an Account based the account_id that is requested
+        This endpoint will read an Account
+        based the account_id that is requested
     """
     app.logger.info("Request to read an Account with id: %s", account_id)
     account = Account.find(account_id)
     if not account:
-        abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")   
-    return  jsonify(account.serialize()), status.HTTP_200_OK
-
-
+        abort(status.HTTP_404_NOT_FOUND,
+              f"Account with id [{account_id}] could not be found.")
+    return jsonify(account.serialize()), status.HTTP_200_OK
 
 
 ######################################################################
@@ -119,14 +121,15 @@ def update_accounts(account_id):
     account = Account.find(account_id)
     # abort() with a status.HTTP_404_NOT_FOUND if it cannot be found
     if not account:
-        abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")   
-    # call the deserialize() method on the account passing in request.get_json()
-    account.deserialize(request.get_json()) 
+        abort(status.HTTP_404_NOT_FOUND,
+              f"Account with id [{account_id}] could not be found.")
+    # call the deserialize() method on the account passing in request.get_json
+    account.deserialize(request.get_json())
     # call account.update() to update the account with the new data
     account.update()
-    # return the serialize() version of the account with a return code of status.HTTP_200_OK
+    # return the serialize() version of the account
+    # with a return code of status.HTTP_200_OK
     return account.serialize(), status.HTTP_200_OK
-
 
 
 ######################################################################
@@ -138,7 +141,8 @@ def update_accounts(account_id):
 def delete_accounts(account_id):
     """
     Delete an Account
-    This endpoint will delete an Account based on the account_id that is requested
+    This endpoint will delete an Account
+    based on the account_id that is requested
     """
     app.logger.info("Request to delete an Account with id: %s", account_id)
     # use the Account.find() method to retrieve the account by the account_id
@@ -146,7 +150,8 @@ def delete_accounts(account_id):
     # if found, call the delete() method on the account
     if account:
         account.delete()
-    # return and empty body ("") with a return code of status.HTTP_204_NO_CONTENT
+    # return and empty body ("") with a return code of status.
+    # HTTP_204_NO_CONTENT
     return "", status.HTTP_204_NO_CONTENT
 
 ######################################################################
