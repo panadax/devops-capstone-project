@@ -67,7 +67,6 @@ spec:
       description: Database connection string
       type: string
       default: "sqlite:///test.db"
-
   steps:
     - name: nosetests
       image: python:3.9-slim
@@ -83,5 +82,3 @@ spec:
         pip install -qr requirements.txt
         echo "***** Running nosetests with: $(params.args)"
         nosetests $(params.args)
----
-
